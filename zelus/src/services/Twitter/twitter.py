@@ -2,10 +2,9 @@
 
 from typing import List
 import random
-from datetime import datetime, timedelta
 from time import sleep
 
-from tweepy import Client, Paginator
+from tweepy import Client
 from TwitterAPI import TwitterAPI
 
 
@@ -69,9 +68,6 @@ class Twitter:
                 temp = client.get_liking_users(id = chosen_tweet.id)
                 new  = [l.id for l in temp.data]
                 likers += new
-            # chosen_tweet = random.choice(tweets)
-            # likers = client.get_liking_users(id = chosen_tweet.id)
-            # likers = [l.id for l in likers.data]
             
             return likers
 
@@ -226,8 +222,6 @@ class Twitter:
         to_follow = coef*num_followers
         count     = 0
 
-        now = datetime.today()
-
         while count < to_follow:
             people = self._search_followables()
             if people != None:
@@ -260,33 +254,3 @@ class Twitter:
         client = self._get_access_client()
         response = client.create_tweet(text = text)
         self._like_tweet(tweet_id = response.data["id"])
-
-if __name__ == "__main__":
-
-    with open("C:/Users/Joao/Repositories/Zelus/data/credentials.json") as file:
-        creds = json.load(file)
-
-    with open("C:/Users/Joao/Repositories/Zelus/data/nfts.json") as file:
-        nfts = json.load(file)
-
-
-    twitter = Twitter(creds = creds, nfts_to_reply = nfts, nfts_to_tweet = nfts)
-
-
-    while True:
-
-        if len(twitter.nfts_to_tweet) == 0:
-            twitter.nfts_to_tweet == nfts
-
-        twitter.tweet()
-        
-        hour = 60*60
-        sleep(random.randint(hour, 2*hour))
-
-        for i in range(6):
-            twitter.reply_something()
-            sleep(300)
-            twitter.follow_people()
-            sleep(2*hour)
-        
-        sleep(random.randint(10*hour, 12*hour))
