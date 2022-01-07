@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "zelus"
+version = "0.1.0"
+description = ""
+authors = ["João Pedro Jacques Hoss <joaopedro_jh@hotmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.10"
+tweepy = "^4.4.0"
+TwitterAPI = "^2.7.11"
+
+[tool.poetry.dev-dependencies]
+ipykernel = "^6.6.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
