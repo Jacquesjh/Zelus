@@ -1,5 +1,4 @@
 
-
 from typing import List
 import random
 from time import sleep
@@ -18,7 +17,6 @@ class Twitter:
 
 
     def __init__(self, creds: dict, nfts_to_tweet: dict, nfts_to_reply: dict) -> None:
-
         self.creds = creds
 
         self.nfts_to_tweet = nfts_to_tweet
@@ -79,7 +77,6 @@ class Twitter:
 
 
     def _get_user_timeline_tweets(self, user_id: str) -> list:
-
         client = self._get_bearer_client()
         tweets = client.get_users_tweets(id = user_id, exclude = ["retweets"])
 
@@ -87,19 +84,16 @@ class Twitter:
 
 
     def _like_tweet(self, tweet_id: str) -> None:
-
         client   = self._get_access_client()
         response = client.like(tweet_id = tweet_id)
 
 
     def _follow(self, user_id: str) -> None:
-
         client   = self._get_access_client()
         response = client.follow_user(target_user_id = user_id)
 
     
     def _get_my_timeline(self) -> list:
-
         client = self._get_bearer_client()
         
         ts = client.get_users_tweets(id = self.my_user_id, tweet_fields = ["context_annotations"])
@@ -118,7 +112,6 @@ class Twitter:
 
 
     def _search_tweets_to_reply(self) -> List[str]:
-
         client = self._get_bearer_client()
         query  = ["drop your nft -is:retweet"]
 
@@ -134,7 +127,6 @@ class Twitter:
 
 
     def _reply(self, tweet_id: str) -> None:
-
         chosen_nft = random.choice(list(self.nfts_to_reply.keys()))
         nft_info   = self.nfts_to_reply[chosen_nft]
 
@@ -144,42 +136,39 @@ class Twitter:
         random.shuffle(self.hash_tags)
         hashtags   = f"{self.hash_tags[0]} {self.hash_tags[1]} {self.hash_tags[2]} {self.hash_tags[3]} {self.hash_tags[4]}"
 
-        text1 = "Get this #NFT to display in the #Metaverse:\n\n"
-        text2 = "Check this #NFT out:\n\n"
-        text3 = "How about this #NFT for your #Metaverse collection?\n\n"
+        text1 = random.choice(["Get this #NFT", "Check this #NFT", "How about this #NFT"])
+        text2 = random.choice([":", " to display in the #Metaverse:", " for you #Metaverse collection:"])
+        text3 = random.choice(["by me", "by myself", "by yours truly"])
+        text4 = random.choice(["From the", "Part of the", "Out of the"])
+        text5 = random.choice(["Luxury", ""])
+        text6 = random.choice(["available at", "only at", "at"])
 
-        texts = [text1, text2, text3]
-
-        text = f'{random.choice(texts)}"{chosen_nft}" by #JacquesDeVoid | From the {collection} Luxury Collection \n\n {hashtags} \n {link}'
+        text = f'{text1}{text2}"{chosen_nft}" {text3} #JacquesDeVoid | {text4} {collection} {text5} Collection {text6} @opensea\n\n {hashtags} \n {link}'
 
         client   = self._get_access_client()
         response = client.create_tweet(text = text, in_reply_to_tweet_id = tweet_id)
         
-        self._like_tweet(tweet_id = reponse.data["id"])
+        self._like_tweet(tweet_id = response.data["id"])
 
 
     def _get_my_retweets(self) -> List[str]:
-        
         tweets = self._get_my_timeline()[1]
 
         return tweets
 
 
-    def _get_my_tweets(self) -> List[str]:
-        
+    def _get_my_tweets(self) -> List[str]:        
         tweets = self._get_my_timeline()[0]
 
         return tweets
 
 
     def _delete_tweet(self, tweet_id: str) -> None:
-
         client   = self._get_access_client()
         response = client.delete_tweet(id = tweet_id)
 
 
     def _get_my_num_followers(self) -> int:
-
         api = TwitterAPI(self.creds["consumer_key"],
                          self.creds["consumer_secret"],
                          self.creds["access_token"],
@@ -193,7 +182,6 @@ class Twitter:
 
 
     def reply_something(self) -> None:
-
         tweets = self._search_tweets_to_reply()
 
         for tweet in tweets:
@@ -204,7 +192,6 @@ class Twitter:
 
 
     def delete_my_timeline(self) -> None:
-
         tweets = self._get_my_tweets()
 
         for tweet in tweets:
@@ -212,18 +199,21 @@ class Twitter:
 
 
     def follow_people(self) -> None:
-
         num_followers = self._get_my_num_followers()
 
         if num_followers < 1000:
             num_followers = 1000
         
-        coef      = 0.05
+        coef      = 0.08
         to_follow = coef*num_followers
         count     = 0
 
+        if to_follow > 500:
+            to_follow = 500
+          
         while count < to_follow:
             people = self._search_followables()
+
             if people != None:
                 if len(people) > to_follow - count:
                     index = to_follow - count
@@ -232,14 +222,12 @@ class Twitter:
                     index = len(people)
 
                 for i in range(int(index)):
-                    sleep(2)
+                    sleep(random.randint(60, 180))
                     self._follow(user_id = people[i])
                     count += 1
-                    print(f"{i} followed")
 
 
     def tweet(self) -> None:
-
         chosen_nft = random.choice(list(self.nfts_to_tweet.keys()))
         nft_info   = self.nfts_to_tweet.pop(chosen_nft)
 
@@ -248,9 +236,17 @@ class Twitter:
 
         random.shuffle(self.hash_tags)
         hashtags = f"{self.hash_tags[0]} {self.hash_tags[1]} {self.hash_tags[2]} {self.hash_tags[3]} {self.hash_tags[4]} #Metaverse"
+        
+        text1 = random.choice(["Behold", "How about", "Check", "How would you like"])
+        text2 = random.choice(["this", "my"])
+        text3 = random.choice(["amazing", "awesome"])
+        text4 = random.choice(["by me", "by myself", "by yours truly"])
+        text5 = random.choice(["From the", "Part of the", "Out of the"])
+        text6 = random.choice(["Luxury", ""])
+        text7 = random.choice(["available at", "only at", "at"])
+        
+        text = f'{text1} {text2} {text3} "{chosen_nft}" #NFT {text4} #JacquesDeVoid | {text5} {collection} {text6} Collection {text7} @opensea\n\n {hashtags} \n {link}'
 
-        text = f'"{chosen_nft}" #NFT by #JacquesDeVoid | Part of the {collection} Luxury Collection \n\n {hashtags} \n {link}'
-
-        client = self._get_access_client()
+        client   = self._get_access_client()
         response = client.create_tweet(text = text)
         self._like_tweet(tweet_id = response.data["id"])
