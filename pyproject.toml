@@ -4,6 +4,10 @@ version = "0.1.0"
 description = ""
 authors = ["João Pedro Jacques Hoss <joaopedro_jh@hotmail.com>"]
 license = "MIT"
+packages = [
+    { include = "zelus"},
+    { include = "zelus/**/*.py" },
+]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.10"
