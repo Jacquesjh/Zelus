@@ -9,6 +9,7 @@ from TwitterAPI import TwitterAPI
 
 class Twitter:
 
+
     creds    : dict
     hash_tags: list
 
@@ -29,14 +30,12 @@ class Twitter:
 
 
     def _get_bearer_client(self) -> Client:
-
         client = Client(bearer_token = self.creds["bearer_token"], wait_on_rate_limit = True)
 
         return client
 
 
     def _get_access_client(self) -> Client:
-
         client = Client(consumer_key        = self.creds["consumer_key"],
                         consumer_secret     = self.creds["consumer_secret"],
                         access_token        = self.creds["access_token"],
@@ -47,7 +46,6 @@ class Twitter:
 
 
     def _search_followables(self) -> List[str]:
-
         client = self._get_bearer_client()
 
         influencer = client.get_user(username = random.choice(self.influencers))
@@ -157,7 +155,7 @@ class Twitter:
         return tweets
 
 
-    def _get_my_tweets(self) -> List[str]:        
+    def _get_my_tweets(self) -> List[str]:
         tweets = self._get_my_timeline()[0]
 
         return tweets
