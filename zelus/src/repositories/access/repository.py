@@ -1,11 +1,12 @@
 
 import os
+from typing import Union
 
 from zelus.src.infrastructure.twitter.infrastructure import AccessInfrastructure
 from zelus.src.core.interfaces.repositories.twitter import IAccessRepository
 
 
-class AccessRepository(IAccessRepository, AccessClient):
+class AccessRepository(IAccessRepository, AccessInfrastructure):
 
 
     consumer_key   : str = os.environ["CONSUMER_KEY"]
@@ -40,8 +41,15 @@ class AccessRepository(IAccessRepository, AccessClient):
         pass
 
 
-    def tweet(self) -> None:
-        pass
+    def tweet(self, tweet_text: str) -> Union:
+        client = self.get_client(consumer_key = self.consumer_key,
+                                 consumer_secret = self.consumer_secret,
+                                 access_token = self.access_token,
+                                 access_token_secret = self.access_token_secret)
+
+        response = client.create_tweet(text = tweet_text)
+
+        return reponse
 
 
     def reply(self) -> None:
