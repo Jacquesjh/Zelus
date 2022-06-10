@@ -1,6 +1,6 @@
 
 
-from abc import ABC, abstractmethod
+from abc import ABC, abstractclassmethod
 
 from tweepy import Client
 
@@ -8,7 +8,6 @@ from tweepy import Client
 class ITwitterInfrastructure(ABC):
 
 
-    @abstractmethod
-    @classmethod
+    @abstractclassmethod
     def get_client(cls) -> Client:
         pass
