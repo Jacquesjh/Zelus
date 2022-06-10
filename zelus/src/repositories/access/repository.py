@@ -49,7 +49,7 @@ class AccessRepository(IAccessRepository, AccessInfrastructure):
 
         response = client.create_tweet(text = tweet_text)
 
-        return reponse
+        return response
 
 
     def reply(self) -> None:
