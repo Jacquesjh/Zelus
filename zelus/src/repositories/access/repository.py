@@ -9,10 +9,10 @@ from zelus.src.core.interfaces.repositories.twitter import IAccessRepository
 class AccessRepository(IAccessRepository, AccessInfrastructure):
 
 
-    consumer_key   : str = os.environ["CONSUMER_KEY"]
-    consumer_secret: str = os.environ["CONSUMER_SECRET"]
-    access_token   : str = os.environ["ACCESS_TOKEN"]
-    access_secret  : str = os.environ["ACCESS_SECRET"]
+    consumer_key       : str = os.environ["CONSUMER_KEY"]
+    consumer_secret    : str = os.environ["CONSUMER_SECRET"]
+    access_token       : str = os.environ["ACCESS_TOKEN"]
+    access_token_secret: str = os.environ["ACCESS_SECRET"]
 
 
     def get_num_followers(self) -> int:
