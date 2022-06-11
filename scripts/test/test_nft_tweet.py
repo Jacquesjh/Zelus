@@ -19,13 +19,13 @@ import json
 import random
 
 def load_nft() -> dict:
-    with open("cache_nfts.json") as file:
+    with open("./cache_nfts.json") as file:
         nfts = json.load(file)
     
     print(f"cache nfts - {len(nfts)}")
 
     if nfts == dict():
-        with open("nfts.json") as file:
+        with open("./nfts.json") as file:
             nfts = json.load(file)
 
     nft_name = random.choice(list(nfts.keys()))
@@ -33,7 +33,7 @@ def load_nft() -> dict:
 
     del nfts[nft_name]
 
-    with open("cache_nfts.json", "w") as file:
+    with open("./cache_nfts.json", "w") as file:
         json.dump(nfts, file)
 
     return nft_name, nft_info
