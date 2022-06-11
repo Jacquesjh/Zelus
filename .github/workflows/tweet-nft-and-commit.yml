@@ -1,0 +1,53 @@
+
+name: tweet-nft-and-commit
+
+
+on:
+  schedule:
+    - cron: '0 12 * * *' # runs at 12:00 UTC everyday
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: test
+
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3
+
+      - name: setup python 
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8.8'
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: run test_nft_tweet.py
+        env:
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_SECRET: ${{ secrets.ACCESS_SECRET }}
+        run: python ./scripts/test/test_nft_tweet.py
+
+      - name: commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "updating cache_nfts json" -a
+
+      - name: push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
