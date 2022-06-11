@@ -18,14 +18,17 @@ from zelus.src.repositories.access.repository import AccessRepository
 import json
 import random
 
+
 def load_nft() -> dict:
-    with open("./cache_nfts.json") as file:
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+    
+    with open(f"{current_dir}/cache_nfts.json") as file:
         nfts = json.load(file)
     
     print(f"cache nfts - {len(nfts)}")
 
     if nfts == dict():
-        with open("./nfts.json") as file:
+        with open(f"{current_dir}/nfts.json") as file:
             nfts = json.load(file)
 
     nft_name = random.choice(list(nfts.keys()))
@@ -33,7 +36,7 @@ def load_nft() -> dict:
 
     del nfts[nft_name]
 
-    with open("./cache_nfts.json", "w") as file:
+    with open(f"{current_dir}/cache_nfts.json", "w") as file:
         json.dump(nfts, file)
 
     return nft_name, nft_info
