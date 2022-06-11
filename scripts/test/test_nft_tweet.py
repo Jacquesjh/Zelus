@@ -63,5 +63,5 @@ def main() -> None:
     repo.like_tweet(tweet_id = response.data["id"])
 
 
-if _name__ == "__main__":
+if __name__ == "__main__":
     main()
