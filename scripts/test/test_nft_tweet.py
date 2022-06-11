@@ -60,7 +60,8 @@ def main() -> None:
     text6 = random.choice(["Luxury", ""])
     text7 = random.choice(["available at", "only at", "at"])
     
-    text = f'{text1} {text2} {text3} "{chosen_nft}" #NFT {text4} #JacquesDeVoid | {text5} {collection} {text6} Collection {text7} @opensea\n\n {link}'
+    text = f'{text1} {text2} {text3} "{nft_name}" #NFT {text4} #JacquesDeVoid | {text5} {collection} {text6} Collection {text7} @opensea\n\n {link}'
+
     repo = AccessRepository()
     response = repo.tweet(tweet_text = text)
     repo.like_tweet(tweet_id = response.data["id"])
