@@ -1,3 +1,2 @@
 
-
-# from zelus.src.services.twitter.service import Twitter
+from zelus.src.services.artist.service import Artist
