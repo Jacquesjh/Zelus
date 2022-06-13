@@ -10,6 +10,8 @@ parent_parent_dir = os.path.dirname(parent_dir)
 sys.path.append(parent_parent_dir)
 # ------------------------------------------------------------
 
+import time
+
 from zelus import Artist
 
 
