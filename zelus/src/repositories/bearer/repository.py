@@ -62,8 +62,7 @@ class BearerRepository(IBearerRepository, BearerInfrastructure):
 
         return users_id
 
-
-    def search_for_people_id_from_tweets(self, num_people: int, tweets_ids: list[str]) -> List[str]:
+    def search_for_people_id_from_tweets(self, num_people: int, tweets_ids: List[str]) -> List[str]:
         users_id = list()
 
         while len(users_id) < num_people:
