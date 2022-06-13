@@ -16,7 +16,7 @@ class Artist:
 
     def unfollow_people(self, num_people: int) -> None:
         bearer_repo = BearerRepository()
-        followers_id = bearer_repo.get_users_followers_id(user_id = influencer_data)
+        followers_id = bearer_repo.get_users_followers_id(user_id = self.user_id)
 
         random.shuffle(followers_id)
 
@@ -45,7 +45,9 @@ class Artist:
     def reply_to_something(self, nft_name: str, nft_info: dict, hashtags: List[str], num_hashtags: int) -> None:
         bearer_repo = BearerRepository()
 
-        query = ["drop your nft -is:retweet"]
+        query      = ["drop your nft -is:retweet"]
+        num_tweets = 15
+
         tweets_data = bearer_repo.get_recent_tweets_data(query = query, num_tweets = num_tweets)
 
         chosen_tweet_data = random.choice(tweets_data)
@@ -82,7 +84,7 @@ class Artist:
         influencer_data = bearer_repo.get_user_data(username = influencer_username)
         influencer_id   = influencer_data.data["id"]
 
-        followers_id = bearer_repo.get_users_followers_id(user_id = influencer_data, num_results = num_people)
+        followers_id = bearer_repo.get_users_followers_id(user_id = influencer_id, num_results = num_people)
 
         return followers_id
 
