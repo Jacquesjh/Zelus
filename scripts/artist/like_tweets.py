@@ -18,6 +18,7 @@ from zelus import Artist
 
 def main() -> None:
     artist = Artist()
+    num_tweets = 100
     artist.like_tweets(num_tweets)
 
 
