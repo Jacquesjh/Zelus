@@ -2,18 +2,25 @@
 import os
 from typing import List
 
-from zelus.src.core.interfaces.infrastructure.twitter import ITwitterInfrastructure
-
+from zelus.src.infrastructure.twitter.infrastructure import BearerInfrastructure
 from zelus.src.core.interfaces.repositories.twitter import IBearerRepository
 
 
-class BearerRepository(IBearerRepository, ITwitterInfrastructure):
+class BearerRepository(IBearerRepository, BearerInfrastructure):
 
 
     bearer_token: str = os.environ["BEARER_TOKEN"]
 
 
-    def get_user_tweets(self, user_id: str) -> list:
+    def get_user_data(self, username: str) -> str:
+        client = self.get_client(bearer_token = self.bearer_token)
+
+        user_data = client.get_user(username = username)
+
+        return user_data
+
+
+    def get_user_tweets_data(self, user_id: str) -> list:
         client = self.get_client(bearer_token = self.bearer_token)
 
         response = client.get_users_tweets(id = user_id, tweet_fields = ["context_annotations"])
@@ -27,7 +34,7 @@ class BearerRepository(IBearerRepository, ITwitterInfrastructure):
         return tweets_data
 
 
-    def get_user_retweets(self, user_id: str) -> list:
+    def get_user_retweets_data(self, user_id: str) -> list:
         client = self.get_client(bearer_token = self.bearer_token)
 
         response = client.get_users_tweets(id = user_id, tweet_fields = ["context_annotations"])
@@ -41,7 +48,7 @@ class BearerRepository(IBearerRepository, ITwitterInfrastructure):
         return retweets_data
 
 
-    def search_for_people_from_influencers(self, num_people: int, influencers_ids: List[str]) -> List[str]:
+    def search_for_people_id_from_influencers(self, num_people: int, influencers_ids: List[str]) -> List[str]:
         users_id = list()
 
         while len(users_id) < num_people:
@@ -56,7 +63,7 @@ class BearerRepository(IBearerRepository, ITwitterInfrastructure):
         return users_id
 
 
-    def search_for_people_from_tweets(self, num_people: int, tweets_ids: list[str]) -> List[str]:
+    def search_for_people_id_from_tweets(self, num_people: int, tweets_ids: list[str]) -> List[str]:
         users_id = list()
 
         while len(users_id) < num_people:
@@ -80,7 +87,7 @@ class BearerRepository(IBearerRepository, ITwitterInfrastructure):
         return users_id
 
 
-    def get_users_followers(self, user_id: str, num_results: int) -> List[str]:
+    def get_users_followers_id(self, user_id: str, num_results: int) -> List[str]:
         client = self.get_client(bearer_token = self.bearer_token)
         
         response     = client.get_users_followers(id = user_id, max_results = num_results)
@@ -89,7 +96,7 @@ class BearerRepository(IBearerRepository, ITwitterInfrastructure):
         return followers_id
 
 
-    def get_recent_tweets(self, query: str, num_tweets: int) -> list:
+    def get_recent_tweets_data(self, query: str, num_tweets: int) -> list:
         client = self.get_client(bearer_token = self.bearer_token)
 
         query = [query]

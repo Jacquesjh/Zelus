@@ -15,6 +15,15 @@ class AccessRepository(IAccessRepository, AccessInfrastructure):
     access_token_secret: str = os.environ["ACCESS_SECRET"]
 
 
+    def unfollow_user_id(self, user_id: str) -> None:
+        client = self.get_client(consumer_key = self.consumer_key,
+                                 consumer_secret = self.consumer_secret,
+                                 access_token = self.access_token,
+                                 access_token_secret = self.access_token_secret)
+
+        client.unfollow_user(target_user_id = user_id)
+
+
     def get_num_followers(self, user_id: str) -> int:
         api = TwitterAPI(self.consumer_key,
                          self.consumer_secret,
@@ -22,10 +31,10 @@ class AccessRepository(IAccessRepository, AccessInfrastructure):
                          self.access_token_secret,
                          api_version = "2")
                          
-        followers = api.request(f"users/:{user_id}/followers")
-        count     = len([f for f in followers])
+        followers     = api.request(f"users/:{user_id}/followers")
+        num_followers = len([f for f in followers])
 
-        return count
+        return num_followers
 
 
     def like_tweet(self, tweet_id: str) -> None:
@@ -34,31 +43,25 @@ class AccessRepository(IAccessRepository, AccessInfrastructure):
                                  access_token = self.access_token,
                                  access_token_secret = self.access_token_secret)
 
-        response = client.like(tweet_id = tweet_id)
-
-        return response
+        client.like(tweet_id = tweet_id)
 
 
-    def follow(self, user__id: str) -> None:
+    def follow(self, user_id: str) -> None:
         client = self.get_client(consumer_key = self.consumer_key,
                                  consumer_secret = self.consumer_secret,
                                  access_token = self.access_token,
                                  access_token_secret = self.access_token_secret)
 
-        response = client.follow_user(target_user_id = user__id)
-
-        return response
+        client.follow_user(target_user_id = user_id)
 
 
-    def delete_tweet(self) -> None:
+    def delete_tweet(self, tweet_id: str) -> None:
         client = self.get_client(consumer_key = self.consumer_key,
                                  consumer_secret = self.consumer_secret,
                                  access_token = self.access_token,
                                  access_token_secret = self.access_token_secret)
 
-        response = client.delete_tweet(id = tweet_id)
-        
-        return response
+        client.delete_tweet(id = tweet_id)
 
 
     def tweet(self, tweet_text: str) -> Union:
@@ -72,7 +75,7 @@ class AccessRepository(IAccessRepository, AccessInfrastructure):
         return response
 
 
-    def reply(self, tweet_text: str, tweet_id_to_reply: str) -> None:
+    def reply(self, tweet_text: str, tweet_id_to_reply: str) -> Union:
         client = self.get_client(consumer_key = self.consumer_key,
                                  consumer_secret = self.consumer_secret,
                                  access_token = self.access_token,
