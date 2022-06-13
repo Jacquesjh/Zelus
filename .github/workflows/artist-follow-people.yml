@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     environment:
-      name: artist
+      name: devoid
 
     steps:
       - name: checkout repo content
@@ -39,5 +39,6 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           ACCESS_SECRET: ${{ secrets.ACCESS_SECRET }}
           USER_ID: ${{ secrets.USER_ID }}
+          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
 
         run: python ./scripts/artist/follow_people.py
