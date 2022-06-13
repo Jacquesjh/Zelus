@@ -11,6 +11,7 @@ sys.path.append(parent_parent_dir)
 # ------------------------------------------------------------
 
 import json
+import random
 import time
 
 from zelus import Artist

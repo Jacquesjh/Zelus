@@ -11,6 +11,7 @@ sys.path.append(parent_parent_dir)
 # ------------------------------------------------------------
 
 import json
+import random
 import time
 
 from zelus import Artist
@@ -18,7 +19,7 @@ from zelus import Artist
 
 def get_influencers_list() -> list:
     current_dir = os.path.dirname(os.path.realpath(__file__))
-    
+
     with open(f"{current_dir}/influencers.json") as file:
         influencers_json = json.load(file)
 
@@ -31,7 +32,7 @@ def main() -> None:
     influencers = get_influencers_list()
 
     artist = Artist()
-    
+
     artist.follow_people(influencers = influencers)
 
 
