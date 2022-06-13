@@ -16,7 +16,7 @@ class Artist:
 
     def unfollow_people(self, num_people: int) -> None:
         bearer_repo = BearerRepository()
-        followers_id = bearer_repo.get_users_followers_id(user_id = self.user_id)
+        followers_id = bearer_repo.get_users_followers_id(user_id = self.user_id, num_results = num_people)
 
         random.shuffle(followers_id)
 
