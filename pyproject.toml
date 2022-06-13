@@ -13,7 +13,6 @@ packages = [
 python = ">=3.8,<3.10"
 tweepy = "^4.4.0"
 TwitterAPI = "^2.7.11"
-Flask = "^2.0.2"
 
 [tool.poetry.dev-dependencies]
 ipykernel = "^6.6.1"
