@@ -25,7 +25,7 @@ class Twitter:
         
         self.influencers = ["OpenSea", "ZssBecker", "rarible", "beeple", "BoredApeYC", "elliotrades", "MetaMask", "TheSandboxGame", "TheBinanceNFT", "DCLBlogger",
                             "thebrettway", "decentraland", "niftygateway", "MrsunNFT", "BinanceChain"]
-        self.hash_tags   = ["#NFTArt", "#NFTCommunity", "#NFTCollection", "#NFTArtist", "#NFTs"]
+        self.hash_tags   = ["#NFTArt", "#NFTCommunity", "#NFTCollection", "#NFTArtist", "#NFTs", "#Metaverse"]
         self.my_user_id  = "1474097571408883730"
 
 
