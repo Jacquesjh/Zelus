@@ -45,7 +45,7 @@ class Artist:
     def reply_to_something(self, nft_name: str, nft_info: dict, hashtags: List[str], num_hashtags: int) -> None:
         bearer_repo = BearerRepository()
 
-        query      = ["drop your nft -is:retweet"]
+        query      = "drop your nft -is:retweet"
         num_tweets = 15
 
         tweets_data = bearer_repo.get_recent_tweets_data(query = query, num_tweets = num_tweets)
@@ -178,7 +178,7 @@ class Artist:
     def like_tweets(self, num_tweets: int) -> None:
         bearer_repo = BearerRepository()
 
-        query = ["nft -is:tweet"]
+        query = "nft -is:tweet"
         tweets_data = bearer_repo.get_recent_tweets_data(query = query, num_tweets = num_tweets)
 
         access_repo = AccessRepository()
