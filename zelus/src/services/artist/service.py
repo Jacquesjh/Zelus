@@ -181,14 +181,8 @@ class Artist:
         query = ["nft -is:tweet"]
         tweets_data = bearer_repo.get_recent_tweets_data(query = query, num_tweets = num_tweets)
 
-        tweets = []
-
-        for tweet in ts.data:
-            if tweet["text"].startswith("@") == False:
-                tweets.append(tweet)
-
         access_repo = AccessRepository()
 
-        for tweet_data in tweets:
+        for tweet_data in tweets_data:
             time.sleep(random.randint(1, 5))
             access_repo.like_tweet(tweet_id = tweet_data.data["id"])
