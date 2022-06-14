@@ -169,7 +169,7 @@ class Artist:
         text = f'{text1} {text2} {text3} "{nft_name}" #NFT {text4} #JacquesDeVoid | {text5} {collection} {text6} Collection {text7} @opensea\n\n {tag} \n {link}'
 
         access_repo = AccessRepository()
-        
+
         response = access_repo.tweet(text = text)
         time.sleep(random.randint(10, 60))
         access_repo.like_tweet(tweet_id = response.data["id"])
@@ -181,8 +181,14 @@ class Artist:
         query = ["nft -is:tweet"]
         tweets_data = bearer_repo.get_recent_tweets_data(query = query, num_tweets = num_tweets)
 
+        tweets = []
+
+        for tweet in ts.data:
+            if tweet["text"].startswith("@") == False:
+                tweets.append(tweet)
+
         access_repo = AccessRepository()
 
-        for tweet_data in tweets_data:
+        for tweet_data in tweets:
             time.sleep(random.randint(1, 5))
             access_repo.like_tweet(tweet_id = tweet_data.data["id"])
