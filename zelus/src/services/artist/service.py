@@ -25,9 +25,9 @@ class Artist:
 
         access_repo  = AccessRepository()
         followers_id = followers_id[: num_people]
-        
+
         for follower_id in followers_id:
-            time.sleep(random.randint(1, 10))
+            time.sleep(random.randint(0.1, 5))
             access_repo.unfollow_user_id(user_id = follower_id)
 
 
@@ -178,7 +178,7 @@ class Artist:
     def like_tweets(self, num_tweets: int) -> None:
         bearer_repo = BearerRepository()
 
-        query = "nft -is:tweet"
+        query = "nft -is:retweet"
         tweets_data = bearer_repo.get_recent_tweets_data(query = query, num_tweets = num_tweets)
 
         access_repo = AccessRepository()
