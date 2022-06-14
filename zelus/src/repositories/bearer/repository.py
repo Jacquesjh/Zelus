@@ -100,6 +100,12 @@ class BearerRepository(IBearerRepository, BearerInfrastructure):
 
         query = [query]
 
-        tweets_data = client.search_recent_tweets(query = query, tweet_fields = ["context_annotations"], max_results = num_tweets, exclude = ["retweets"])
+        tweets_data = client.search_recent_tweets(query = query, tweet_fields = ["context_annotations"], max_results = num_tweets)
 
-        return tweets_data
+        tweets = []
+
+        for tweet in ts.data:
+            if tweet["text"].startswith("@") == False:
+                tweets.append(tweet)
+
+        return tweets
