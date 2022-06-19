@@ -11,7 +11,8 @@ from zelus.src.repositories.bearer.repository import BearerRepository
 class Artist:
 
 
-    user_id: str = os.environ["USER_ID"]
+    # user_id: str = os.environ["USER_ID"]
+    user_id: str = "1474097571408883730"
 
 
     def unfollow_people(self, num_people: int) -> None:
@@ -27,7 +28,7 @@ class Artist:
         followers_id = followers_id[: num_people]
 
         for follower_id in followers_id:
-            time.sleep(random.randint(0.1, 5))
+            time.sleep(random.randint(1, 50)/10)
             access_repo.unfollow_user_id(user_id = follower_id)
 
 
@@ -50,7 +51,7 @@ class Artist:
 
         tweets_data = bearer_repo.get_recent_tweets_data(query = query, num_tweets = num_tweets)
 
-        chosen_tweet_data = random.choice(tweets_data)
+        chosen_tweet_data = random.choice(tweets_data.data)
         tweet_id = chosen_tweet_data.data["id"]
 
         collection = nft_info["collection"]
@@ -69,7 +70,7 @@ class Artist:
         text5 = random.choice(["Luxury", ""])
         text6 = random.choice(["available at", "only at", "at"])
 
-        text = f'{text1}{text2}"{chosen_nft}" {text3} #JacquesDeVoid | {text4} {collection} {text5} Collection {text6} @opensea\n\n {hashtags} \n {link}'
+        text = f'{text1}{text2}"{nft_name}" {text3} #JacquesDeVoid | {text4} {collection} {text5} Collection {text6} @opensea\n\n {hashtags} \n {link}'
 
         access_repo = AccessRepository()
         
@@ -108,7 +109,7 @@ class Artist:
         return likers_id
 
 
-    def _get_people(sel, num_people: int, influencers_list: List[str]) -> List[str]:
+    def _get_people(self, num_people: int, influencers_list: List[str]) -> List[str]:
         options = {
             "from_tweets"   : self._get_people_from_influencer_tweets,
             "from_followers": self._get_people_from_influencer_followers,
@@ -170,7 +171,7 @@ class Artist:
 
         access_repo = AccessRepository()
 
-        response = access_repo.tweet(text = text)
+        response = access_repo.tweet(tweet_text = text)
         time.sleep(random.randint(10, 60))
         access_repo.like_tweet(tweet_id = response.data["id"])
 
