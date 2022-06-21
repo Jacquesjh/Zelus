@@ -70,7 +70,7 @@ class Artist:
         text5 = random.choice(["Luxury", ""])
         text6 = random.choice(["available at", "only at", "at"])
 
-        text = f'{text1}{text2}"{nft_name}" {text3} #JacquesDeVoid | {text4} {collection} {text5} Collection {text6} @opensea\n\n {hashtags} \n {link}'
+        text = f'{text1}{text2}"{nft_name}" {text3} #JacquesDeVoid | {text4} {collection} {text5} Collection {text6} @opensea\n\n {tag} \n {link}'
 
         access_repo = AccessRepository()
         
