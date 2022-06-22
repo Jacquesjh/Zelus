@@ -50,7 +50,7 @@ class Artist:
 
         tweets_data = bearer_repo.get_recent_tweets_data(query = query, num_tweets = num_tweets)
 
-        chosen_tweet_data = random.choice(tweets_data.data)
+        chosen_tweet_data = random.choice(tweets_data)
         tweet_id = chosen_tweet_data.data["id"]
 
         collection = nft_info["collection"]
