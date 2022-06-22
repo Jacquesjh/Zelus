@@ -32,7 +32,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: run delete_my_yweeys_timeline.py
+      - name: run delete_my_tweets_timeline.py
         env:
           CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
           CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
@@ -41,4 +41,4 @@ jobs:
           USER_ID: ${{ secrets.USER_ID }}
           BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
 
-        run: python ./scripts/artist/delete_my_yweeys_timeline.py
+        run: python ./scripts/artist/delete_my_tweets_timeline.py
