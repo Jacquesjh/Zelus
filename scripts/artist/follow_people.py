@@ -37,6 +37,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    # time.sleep(random.randint(30, 180))
-    time.sleep(random.randint(1, 5))
+    time.sleep(random.randint(30, 180))
     main()

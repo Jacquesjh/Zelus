@@ -11,8 +11,7 @@ from zelus.src.repositories.bearer.repository import BearerRepository
 class Artist:
 
 
-    # user_id: str = os.environ["USER_ID"]
-    user_id: str = "1474097571408883730"
+    user_id: str = os.environ["USER_ID"]
 
 
     def unfollow_people(self, num_people: int) -> None:
