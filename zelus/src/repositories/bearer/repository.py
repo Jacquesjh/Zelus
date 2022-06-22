@@ -9,8 +9,7 @@ from zelus.src.core.interfaces.repositories.twitter import IBearerRepository
 class BearerRepository(IBearerRepository, BearerInfrastructure):
 
 
-    # bearer_token: str = os.environ["BEARER_TOKEN"]
-    bearer_token: str = "AAAAAAAAAAAAAAAAAAAAAOATXwEAAAAAuHuA7bS%2BdqyJmaH%2BP%2BNAMY4RBw4%3DHDCymf5ve6VpN2C1Z0eKaZomqNPvTNnuyivGhqy0ui6b2kOTHt"
+    bearer_token: str = os.environ["BEARER_TOKEN"]
 
 
     def get_user_data(self, username: str) -> str:
@@ -63,6 +62,7 @@ class BearerRepository(IBearerRepository, BearerInfrastructure):
 
         return users_id
 
+
     def search_for_people_id_from_tweets(self, num_people: int, tweets_ids: List[str]) -> List[str]:
         users_id = list()
 
@@ -101,6 +101,11 @@ class BearerRepository(IBearerRepository, BearerInfrastructure):
 
         query = [query]
 
-        tweets_data = client.search_recent_tweets(query = query, tweet_fields = ["context_annotations"], max_results = num_tweets)
+        response = client.search_recent_tweets(query = query, tweet_fields = ["context_annotations"], max_results = num_tweets)
+
+        tweets_data = []
+
+        for tweet_data in response.data:
+            tweets_data.append(tweet_data)
 
         return tweets_data
