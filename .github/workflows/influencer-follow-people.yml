@@ -1,0 +1,44 @@
+
+name: influencer-follow-people
+
+
+on:
+  schedule:
+    - cron: '0 */16 * * *' # every 8 hours
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: influencer
+
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3
+
+      - name: setup python 
+        uses: actions/setup-python@v2
+
+        with:
+          python-version: '3.8.8'
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: run follow_people.py
+        env:
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_SECRET: ${{ secrets.ACCESS_SECRET }}
+          USER_ID: ${{ secrets.USER_ID }}
+          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+
+        run: python ./scripts/influencer/follow_people.py
