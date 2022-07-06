@@ -42,7 +42,7 @@ class Influencer:
 
         influencer_data = bearer_repo.get_user_data(username = influencer_username)
         influencer_id   = influencer_data.data["id"]
-    
+
         tweets_data = bearer_repo.get_user_tweets_data(user_id = influencer_id)
         tweets_id   = [tweet_data.data["id"] for tweet_data in tweets_data]
 
@@ -89,7 +89,13 @@ class Influencer:
 
             for person_id in people_ids:
                 time.sleep(random.randint(10, 60))
-                access_repo.follow(user_id = person_id)
+
+                try:
+                    access_repo.follow(user_id = person_id)
+
+                except:
+                    pass
+
                 count += 1
 
 
@@ -107,4 +113,9 @@ class Influencer:
 
         for tweet_data in tweets_data:
             time.sleep(random.randint(1, 25))
-            access_repo.like_tweet(tweet_id = tweet_data.data["id"])
+
+            try:
+                access_repo.like_tweet(tweet_id = tweet_data.data["id"])
+
+            except:
+                pass
