@@ -141,7 +141,13 @@ class Artist:
 
             for person_id in people_ids:
                 time.sleep(random.randint(10, 60))
-                access_repo.follow(user_id = person_id)
+
+                try:
+                    access_repo.follow(user_id = person_id)
+
+                except:
+                    pass
+
                 count += 1
 
 
@@ -185,4 +191,9 @@ class Artist:
 
         for tweet_data in tweets_data:
             time.sleep(random.randint(1, 5))
-            access_repo.like_tweet(tweet_id = tweet_data.data["id"])
+
+            try:
+                access_repo.like_tweet(tweet_id = tweet_data.data["id"])
+
+            except:
+                pass
