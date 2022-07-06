@@ -4,7 +4,7 @@ name: artist-follow-people
 
 on:
   schedule:
-    - cron: '0 */8 * * *' # every 8 hours
+    - cron: '0 4 * * *' # every 8 hours
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
