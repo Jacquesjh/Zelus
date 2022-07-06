@@ -106,7 +106,7 @@ class Influencer:
     def like_tweets(self, num_tweets: int) -> None:
         bearer_repo = BearerRepository()
 
-        query = "crypto -is:retweet"
+        query = "cripto -is:retweet"
         tweets_data = bearer_repo.get_recent_tweets_data(query = query, num_tweets = num_tweets)
 
         access_repo = AccessRepository()
