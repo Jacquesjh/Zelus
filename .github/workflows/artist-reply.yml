@@ -4,7 +4,7 @@ name: artist-reply
 
 on:
   schedule:
-    - cron: '0 */6 * * *' # every 6 hours
+    - cron: '0 */12 * * *' # every 6 hours
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
