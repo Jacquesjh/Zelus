@@ -82,9 +82,11 @@ class BearerRepository(IBearerRepository, BearerInfrastructure):
         client = self.get_client(bearer_token = self.bearer_token)
 
         response = client.get_liking_users(id = tweet_id)
-        users_id = [user.id for user in response.data]
 
-        return users_id
+        if reponse is not None:
+            users_id = [user.id for user in response.data]
+
+            return users_id
 
 
     def get_users_followers_id(self, user_id: str, num_results: int) -> List[str]:
