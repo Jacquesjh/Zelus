@@ -76,6 +76,17 @@ class AccessRepository(IAccessRepository, AccessInfrastructure):
         return response
 
 
+    def retweet(self, tweet_id_to_retweet: str) -> Union:
+        client = self.get_client(consumer_key = self.consumer_key,
+                                 consumer_secret = self.consumer_secret,
+                                 access_token = self.access_token,
+                                 access_token_secret = self.access_token_secret)
+
+        response = client.retweet(tweet_id = tweet_id_to_retweet)
+
+        return response
+
+
     def reply(self, tweet_text: str, tweet_id_to_reply: str) -> Union:
         client = self.get_client(consumer_key = self.consumer_key,
                                  consumer_secret = self.consumer_secret,

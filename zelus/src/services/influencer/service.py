@@ -119,3 +119,23 @@ class Influencer:
 
             except:
                 pass
+
+
+    def retweet(self, chosen_news_username: str) -> None:
+        bearer_repo = BearerRepository()
+
+        news_data = bearer_repo.get_user_data(username = chosen_news_username)
+        news_id   = news_data.data["id"]
+
+        tweets_data = bearer_repo.get_user_tweets_data(user_id = news_id)
+
+        latest_tweet    = tweets_data[0]
+        latest_tweet_id = latest_tweet.data["id"]
+
+        access_repo = AccessRepository()
+
+        try:
+            response = access_repo.retweet(tweet_id_to_retweet = latest_tweet_id)
+
+        except:
+            pass
