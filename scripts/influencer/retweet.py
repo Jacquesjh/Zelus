@@ -21,15 +21,15 @@ def get_news_list() -> list:
     current_dir = os.path.dirname(os.path.realpath(__file__))
 
     with open(f"{current_dir}/news.json") as file:
-        influencers_json = json.load(file)
+        news_json = json.load(file)
 
-    influencers_list = influencers_json["news"]
+    news_list = news_json["news"]
 
-    return influencers_list
+    return news_list
 
 
 def main() -> None:
-    news = get_influencers_list()
+    news = get_news_list()
 
     influencer = Influencer()
 
