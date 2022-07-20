@@ -83,7 +83,7 @@ class BearerRepository(IBearerRepository, BearerInfrastructure):
 
         response = client.get_liking_users(id = tweet_id)
 
-        if reponse is not None:
+        if response is not None:
             users_id = [user.id for user in response.data]
 
             return users_id
